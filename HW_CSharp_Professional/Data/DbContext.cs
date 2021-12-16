@@ -11,5 +11,13 @@ namespace Weather.Data
     {
         public List<Item> Items { get; set; } = new List<Item>();
 
+        public void Print()
+        {
+            foreach (var item in Items)
+            {
+                item.Print();
+                Console.WriteLine(new string('-', 20));
+            }
+        }
     }
 }

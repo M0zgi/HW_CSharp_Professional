@@ -9,18 +9,22 @@ namespace Weather.Entities
 {
     public class Item
     {
-        
+
         //при создании сущности заполняем значения датчиков нулями, расчитываем на то, что датчики рабочие и всегда передедут актуальные данные
-        public Item()
-        {
-            MyParams.Add(this.Id, list);           
-        }
+        //public Item()
+        //{
+        //    MyParams.Add(this.Id, list);
+        //    list.Add(0);
+        //    list.Add(0);
+        //    list.Add(0);
+            
+        //}
 
         public Guid Id { get; set; } = Guid.NewGuid(); // номер передачи данных
 
         //коллекция для хранения значений с датчиков
-        public List<int> list = new List<int>() { 0,0,0} ;
-        
+        public List<int> list = new List<int>(); //{ 0,0,0} 
+
         XmlDictionary<Guid, List<int>> MyParams = new XmlDictionary<Guid, List<int>>();
 
         //создание словаря для сериализации данных по конкретному датчику
@@ -35,9 +39,9 @@ namespace Weather.Entities
             //обрабатываем на наличие индексов в коллекции
             try
             {
-                this.list[0] = temperature;
-                this.list[1] = pressure;
-                this.list[2] = wind_speed;
+                this.list.Add(temperature);
+                this.list.Add(pressure);
+                this.list.Add(wind_speed);
             }
             catch (Exception e)
             {
@@ -54,15 +58,18 @@ namespace Weather.Entities
             foreach (var item2 in MyParams.Values)
             {                
                 Console.WriteLine($"Температура: {item2[0]} °С");
-                Console.WriteLine($"Давление воздуха: {item2[1]} атм");
+                Console.WriteLine($"Давление воздуха: {item2[1]} мм");
                 Console.WriteLine($"Скорость ветра: {item2[2]} км/ч");                
             }          
 
         }
 
-        //public override string ToString()
-        //{
-        //    return $"Guid Id {Id}, Key: {MyParams.Keys}, Value: {MyParams.Values}";
-        //}
+        public override string ToString()
+        {
+            return $"Id устройства с датчиками: { Id}\n" + 
+                $"Температура: { this.list[0]} °С\n" +
+                $"Давление воздуха: { this.list[1]} мм\n" +
+                $"Скорость ветра: {this.list[2]} км/ч\n";
+        }
     }
 }

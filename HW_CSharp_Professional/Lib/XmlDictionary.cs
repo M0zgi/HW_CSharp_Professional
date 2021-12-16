@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,11 +30,11 @@ namespace Weather.Lib
                 return;
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {
-                reader.ReadStartElement("item");
-                reader.ReadStartElement("key");
+                reader.ReadStartElement("item");               
+                reader.ReadStartElement("key");                
                 TKey key = (TKey)keySerializer.Deserialize(reader);
                 reader.ReadEndElement();
-                reader.ReadStartElement("value");
+                reader.ReadStartElement("value");               
                 TValue value = (TValue)valueSerializer.Deserialize(reader);
                 reader.ReadEndElement();
                 this.Add(key, value);
@@ -47,6 +48,10 @@ namespace Weather.Lib
         {
             XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+            //string v = "</value>";
+            //string i = "</item>";
+            //string path = "data.xml";
+           
             foreach (TKey key in this.Keys)
             {
                 writer.WriteStartElement("item");
@@ -57,8 +62,16 @@ namespace Weather.Lib
                 TValue value = this[key];
                 valueSerializer.Serialize(writer, value);
                 writer.WriteEndElement();
-                writer.WriteEndElement();
+                //writer.WriteEndElement();
+
+                
             }
+           writer.Close();
+            //using (FileStream fs = new FileStream(path, FileMode.Append))
+            //{
+            //    byte[] input = Encoding.Default.GetBytes(v);
+            //    fs.Write(input, 0, input.Length);
+            //}
         }
     }
 }
