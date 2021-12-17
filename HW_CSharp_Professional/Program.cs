@@ -26,7 +26,7 @@ namespace HW_CSharp_Professional
             item_1.SetDictionaryValue(item_1.Id, item_1.list);
 
             item_2.SetListValue(18, 3, 9); 
-            item_2.SetDictionaryValue(item_2.Id, item_1.list);
+            item_2.SetDictionaryValue(item_2.Id, item_2.list);
 
             // создание списка для сущностей
             DbContext db = new DbContext();
