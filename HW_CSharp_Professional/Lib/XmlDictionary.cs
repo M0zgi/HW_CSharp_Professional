@@ -13,7 +13,6 @@ namespace Weather.Lib
 {
     class XmlDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable
     {
-
         public int TKey_TValue{ get; set; }
 
         public event Action<Exception> OnError;
@@ -43,9 +42,8 @@ namespace Weather.Lib
                 Program.Log.Info(" public void ReadXml(XmlReader reader) wasEmpty");
 
                 return;
-            }    
-                
-
+            }  
+              
             int count = 0;
             try
             {
@@ -79,10 +77,7 @@ namespace Weather.Lib
             catch (Exception e)
             {
                 OnError(e);
-            }            
-
-           
-
+            }
         }
 
         public void WriteXml(XmlWriter writer)
@@ -131,9 +126,6 @@ namespace Weather.Lib
             {
                 OnError(e);
             }
-
-           
-            
         }
     }
 }
