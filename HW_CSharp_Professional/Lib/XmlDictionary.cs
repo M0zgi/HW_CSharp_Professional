@@ -21,24 +21,34 @@ namespace Weather.Lib
         }
 
         public void ReadXml(XmlReader reader)
-        {
+        {      
             XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
             XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
             bool wasEmpty = reader.IsEmptyElement;
             reader.Read();
             if (wasEmpty)
                 return;
+
+            int count = 0;
+
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {
-                reader.ReadStartElement("item");               
-                reader.ReadStartElement("key");                
+                
+                if (count == 0)
+                {
+                    reader.ReadStartElement("item");
+                }
+                
+                //reader.Skip();
+                reader.ReadStartElement("key");
                 TKey key = (TKey)keySerializer.Deserialize(reader);
                 reader.ReadEndElement();
-                reader.ReadStartElement("value");               
+                reader.ReadStartElement("value");
                 TValue value = (TValue)valueSerializer.Deserialize(reader);
                 reader.ReadEndElement();
                 this.Add(key, value);
-                reader.ReadEndElement();
+                count++;
+                //reader.ReadEndElement();
                 reader.MoveToContent();
             }
             reader.ReadEndElement();
@@ -51,10 +61,13 @@ namespace Weather.Lib
             //string v = "</value>";
             //string i = "</item>";
             //string path = "data.xml";
-           
+            int count = 0;
             foreach (TKey key in this.Keys)
             {
-                writer.WriteStartElement("item");
+                if (count == 0)
+                {
+                    writer.WriteStartElement("item");
+                }
                 writer.WriteStartElement("key");
                 keySerializer.Serialize(writer, key);
                 writer.WriteEndElement();
@@ -63,10 +76,11 @@ namespace Weather.Lib
                 valueSerializer.Serialize(writer, value);
                 writer.WriteEndElement();
                 //writer.WriteEndElement();
+                count++;
 
-                
             }
            writer.Close();
+
             //using (FileStream fs = new FileStream(path, FileMode.Append))
             //{
             //    byte[] input = Encoding.Default.GetBytes(v);

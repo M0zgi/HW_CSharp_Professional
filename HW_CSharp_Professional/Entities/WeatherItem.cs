@@ -43,6 +43,8 @@ namespace Weather.Entities
         //string fileName = "data.xml";
         public void Save()
         {
+           // XmlReaderSettings settings = new XmlReaderSettings();
+           // settings.ConformanceLevel = ConformanceLevel.Fragment;
             XmlTextWriter fileName = new XmlTextWriter("data.xml", null);
             fileName.Formatting = Formatting.Indented;
             Par.WriteXml(fileName);  
