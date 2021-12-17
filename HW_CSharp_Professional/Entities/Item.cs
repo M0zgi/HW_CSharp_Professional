@@ -9,17 +9,6 @@ namespace Weather.Entities
 {
     public class Item
     {
-
-        //при создании сущности заполняем значения датчиков нулями, расчитываем на то, что датчики рабочие и всегда передедут актуальные данные
-        //public Item()
-        //{
-        //    MyParams.Add(this.Id, list);
-        //    list.Add(0);
-        //    list.Add(0);
-        //    list.Add(0);
-            
-        //}
-
         public Guid Id { get; set; } = Guid.NewGuid(); // номер передачи данных
 
         //коллекция для хранения значений с датчиков
@@ -52,16 +41,14 @@ namespace Weather.Entities
 
         public void Print()
         {
-            Console.WriteLine($"Guid Id {Id}");
-           
+            Console.WriteLine($"Guid Id {Id}");           
 
             foreach (var item2 in MyParams.Values)
             {                
                 Console.WriteLine($"Температура: {item2[0]} °С");
                 Console.WriteLine($"Давление воздуха: {item2[1]} мм");
                 Console.WriteLine($"Скорость ветра: {item2[2]} км/ч");                
-            }          
-
+            }        
         }
 
         public override string ToString()

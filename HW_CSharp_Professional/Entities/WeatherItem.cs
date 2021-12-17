@@ -18,14 +18,27 @@ namespace Weather.Entities
 
         XmlDictionary<string, Item> Par { get; set; } = new XmlDictionary<string, Item>(); // коллекция параметров по времени поступления
 
-        public void Seed(Item item)
-        {
-            string dt = DateTime.UtcNow.ToString("yyyy.MM.dd_HH.mm.ss.fff", CultureInfo.InvariantCulture);
-           // dt = dt.Replace("-", ".");
-           // dt = dt.Replace(":", ".");
-
-            Par.Add(dt, item);
+        //заполнение данными из DbContext
+        public void SeedWeatherItem(List<Item> Items)
+        {            
+            foreach (var item in Items)
+            {
+                string dt = DateTime.UtcNow.ToString("yyyy.MM.dd_HH.mm.ss.fff", CultureInfo.InvariantCulture);
+                Par.Add(dt, item);
+            }
         }
+
+        /// <summary>
+        /// старая версия заполнения
+        /// </summary>
+        //public void Seed(Item item)
+        //{
+        //    string dt = DateTime.UtcNow.ToString("yyyy.MM.dd_HH.mm.ss.fff", CultureInfo.InvariantCulture);
+        //   // dt = dt.Replace("-", ".");
+        //   // dt = dt.Replace(":", ".");
+
+        //    Par.Add(dt, item);
+        //}
 
         public void PrintWI()
         {  
@@ -39,8 +52,7 @@ namespace Weather.Entities
                 Console.WriteLine(item.Value);                
             }
         }
-
-        //string fileName = "data.xml";
+        
         public void Save()
         {
            // XmlReaderSettings settings = new XmlReaderSettings();

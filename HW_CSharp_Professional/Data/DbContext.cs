@@ -12,6 +12,11 @@ namespace Weather.Data
     {
         public List<Item> Items { get; set; } = new List<Item>();
 
+        public void SeedDbContext(Item Items)
+        {       
+            this.Items.Add(Items);
+        }
+
         public void Print()
         {
             foreach (var item in Items)
@@ -19,7 +24,6 @@ namespace Weather.Data
                 item.Print();
                 Console.WriteLine(new string('-', 20));
             }
-        }
-       
+        }       
     }
 }

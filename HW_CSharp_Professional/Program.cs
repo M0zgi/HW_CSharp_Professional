@@ -21,15 +21,14 @@ namespace HW_CSharp_Professional
 
             //DbContext db = new DbContext();
 
-            //db.Items.Add(item_1);
-            //db.Items.Add(item_2);
+            //db.SeedDbContext(item_1);
+            //db.SeedDbContext(item_2);
 
             //db.Print();
             //Console.WriteLine(new string('-', 30));
             WeatherItem weatherItem = new WeatherItem();
 
-            //weatherItem.Seed(item_1);
-            //weatherItem.Seed(item_2);
+            //weatherItem.SeedWeatherItem(db.Items);          
 
             //weatherItem.Save();
 
