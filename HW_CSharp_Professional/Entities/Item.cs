@@ -25,7 +25,6 @@ namespace Weather.Entities
         //заполнение текущими значениями с дачиков у сущности
         public void SetListValue(int temperature, int pressure, int wind_speed)
         {
-            //обрабатываем на наличие индексов в коллекции
             try
             {
                 this.list.Add(temperature);
