@@ -1,9 +1,11 @@
-﻿using System;
+﻿using HW_CSharp_Professional;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -16,6 +18,16 @@ namespace Weather.Entities
     {
         public Guid Id { get; set; } = Guid.NewGuid(); // номер устройства
 
+        public event Action<Exception> OnError;
+
+        public WeatherItem()
+        {
+            OnError += (e) => {
+                // Console.WriteLine("\n!!! Error: " + e.Message); 
+                Program.Log.Error(e.Message);
+            };
+        }
+
         XmlDictionary<string, Item> Par { get; set; } = new XmlDictionary<string, Item>(); // коллекция параметров по времени поступления
 
         //заполнение данными из DbContext
@@ -23,8 +35,25 @@ namespace Weather.Entities
         {            
             foreach (var item in Items)
             {
-                string dt = DateTime.UtcNow.ToString("yyyy.MM.dd_HH.mm.ss.fff", CultureInfo.InvariantCulture);
-                Par.Add(dt, item);
+                try
+                {
+                    string dt = DateTime.UtcNow.ToString("yyyy.MM.dd_HH.mm.ss.fff", CultureInfo.InvariantCulture);
+                    Par.Add(dt, item);
+
+                    //замедляем поток, что бы гарантированной получить уникальный ключ {dt}
+                    Thread.Sleep(1);
+                }
+                catch (Exception e)
+                {
+                    string errormsg = e.ToString();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"ОШИБКА!!!! {errormsg}");
+                    Console.ResetColor();
+                    OnError(e);
+                }                
+
+               
             }
         }
 
