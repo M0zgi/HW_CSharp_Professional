@@ -56,6 +56,8 @@ namespace HW_CSharp_Professional
             weatherItem.PrintWI();
 
             Log.Info("Работа программы завершена");
+
+            Console.ReadKey();
         }
     }
 }
