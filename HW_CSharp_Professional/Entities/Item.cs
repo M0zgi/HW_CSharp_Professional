@@ -43,18 +43,26 @@ namespace Weather.Entities
             Console.WriteLine($"Guid Id {Id}");           
 
             foreach (var item2 in MyParams.Values)
-            {                
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"Температура: {item2[0]} °С");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine($"Давление воздуха: {item2[1]} мм");
-                Console.WriteLine($"Скорость ветра: {item2[2]} км/ч");                
-            }        
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"Скорость ветра: {item2[2]} км/ч");
+                Console.ResetColor();
+
+            }
         }
 
         public override string ToString()
         {
+
             return $"Id устройства с датчиками: { Id}\n" + 
-                $"Температура: { this.list[0]} °С\n" +
-                $"Давление воздуха: { this.list[1]} мм\n" +
+                $"Температура: {this.list[0]} °С\n" +
+                $"Давление воздуха: {this.list[1]} мм\n" +
                 $"Скорость ветра: {this.list[2]} км/ч\n";
         }
     }

@@ -52,6 +52,10 @@ namespace Weather.Lib
                 reader.MoveToContent();
             }
             reader.ReadEndElement();
+
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Десериализация успешно завершена!\n");
+            Console.ResetColor();
         }
 
         public void WriteXml(XmlWriter writer)
@@ -77,9 +81,13 @@ namespace Weather.Lib
                 writer.WriteEndElement();
                 //writer.WriteEndElement();
                 count++;
-
             }
+
            writer.Close();
+
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("Сериализация успешно завершена");
+            Console.ResetColor();
 
             //using (FileStream fs = new FileStream(path, FileMode.Append))
             //{

@@ -49,7 +49,9 @@ namespace Weather.Entities
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Время загрузки данных: {item.Key}");
                 Console.ResetColor();
-                Console.WriteLine(item.Value);                
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(item.Value);
+                Console.ResetColor();
             }
         }
         

@@ -28,7 +28,7 @@ namespace HW_CSharp_Professional
             //Console.WriteLine(new string('-', 30));
             WeatherItem weatherItem = new WeatherItem();
 
-            //weatherItem.SeedWeatherItem(db.Items);          
+            //weatherItem.SeedWeatherItem(db.Items);
 
             //weatherItem.Save();
 
